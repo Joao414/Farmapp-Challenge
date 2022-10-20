@@ -1,0 +1,389 @@
+{
+  "intents": [
+    {
+      "intent": "Agradecimento",
+      "examples": [
+        {
+          "text": "obg"
+        },
+        {
+          "text": "Obrigado"
+        },
+        {
+          "text": "Obrigado Laura"
+        },
+        {
+          "text": "Obrigado, Laura"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Cumprimentos",
+      "examples": [
+        {
+          "text": "Boa noite"
+        },
+        {
+          "text": "Boa tarde"
+        },
+        {
+          "text": "Bom dia"
+        },
+        {
+          "text": "Como vai?"
+        },
+        {
+          "text": "Oi"
+        },
+        {
+          "text": "Oie"
+        },
+        {
+          "text": "Oii"
+        },
+        {
+          "text": "Olá"
+        },
+        {
+          "text": "Olá, tudo bem?"
+        },
+        {
+          "text": "Tudo bem?"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "resposta-codigo",
+      "examples": [
+        {
+          "text": "#ak7543"
+        },
+        {
+          "text": "#hf75f"
+        },
+        {
+          "text": "#kx94m"
+        },
+        {
+          "text": "#nmc69a"
+        },
+        {
+          "text": "#sh60h"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "status-pedido",
+      "examples": [
+        {
+          "text": "Aprovaram?"
+        },
+        {
+          "text": "Meu pedido está em qual status?"
+        },
+        {
+          "text": "Meu pedido foi aprovado?"
+        },
+        {
+          "text": "Meu pedido já está no status aprovado?"
+        },
+        {
+          "text": "Qual é o status do meu pedido?"
+        },
+        {
+          "text": "status"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "tempo-resposta",
+      "examples": [
+        {
+          "text": "A receita ainda está em análise?"
+        },
+        {
+          "text": "Em quanto tempo a farmácia me responderá?"
+        },
+        {
+          "text": "Qual é o prazo de resposta?"
+        },
+        {
+          "text": "Qual é o tempo de resposta?"
+        },
+        {
+          "text": "Quanto tempo a farmácia precisa para analisar a minha receita?"
+        }
+      ],
+      "description": "Essa intenção tem por objetivo informar em quanto tempo uma farmácia responde"
+    }
+  ],
+  "entities": [
+    {
+      "entity": "cidade",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "Minas Gerais",
+          "synonyms": [
+            "minas gerais, minas, terra do queijo"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "Rio de Janeiro",
+          "synonyms": [
+            "rio, cidade maravilhora, janeiro"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "São Paulo",
+          "synonyms": [
+            "sampa, sao paulo, terra da garoa"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    }
+  ],
+  "metadata": {
+    "api_version": {
+      "major_version": "v2",
+      "minor_version": "2018-11-08"
+    }
+  },
+  "dialog_nodes": [
+    {
+      "type": "standard",
+      "title": "Bem-vindo",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Olá, eu sou o assistente virtual da Farmapp e espero que você esteja bem! Como posso te ajudar?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "welcome",
+      "dialog_node": "Bem-vindo"
+    },
+    {
+      "type": "standard",
+      "title": "Tempo de resposta",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Normalmente, a análise realizada pela farmácia leva em torno de 1 dia útil. Dito isso, assim que a sua receita for aprovada pela farmácia, prosseguiremos com a seleção e entrega do produto. "
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#tempo-resposta",
+      "dialog_node": "Em outros casos",
+      "previous_sibling": "node_2_1664974933553",
+      "disambiguation_opt_out": true
+    },
+    {
+      "type": "event_handler",
+      "parent": "slot_1_1664976827769",
+      "event_name": "input",
+      "dialog_node": "handler_6_1664976827769"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_1_1664976827769",
+      "event_name": "focus",
+      "dialog_node": "handler_7_1664976827769",
+      "previous_sibling": "handler_6_1664976827769"
+    },
+    {
+      "type": "standard",
+      "title": "Agradecimento",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Imagina! Sempre que precisar, pode contar comigo!"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#Agradecimento",
+      "dialog_node": "node_10_1665100542298",
+      "previous_sibling": "Bem-vindo"
+    },
+    {
+      "type": "frame",
+      "title": "Status do pedido",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Para verificarmos os status do seu pedido, por gentileza, nos informe o número do mesmo."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "random"
+          },
+          {
+            "values": [
+              {
+                "text": "olá"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "metadata": {
+        "_customization": {
+          "mcr": false
+        }
+      },
+      "conditions": "#status-pedido",
+      "digress_in": "does_not_return",
+      "dialog_node": "node_2_1664974933553",
+      "previous_sibling": "node_5_1665016196748"
+    },
+    {
+      "type": "standard",
+      "title": "Cumprimentar",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Olá, espero que você esteja bem! Eu sou a Laura, assistente virtual da Farmapp e estou aqui para ajudá-lo a usufruir o melhor da aplicação e tirar suas principais dúvidas. "
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#Cumprimentos",
+      "dialog_node": "node_5_1665016196748",
+      "previous_sibling": "node_5_1665100064594"
+    },
+    {
+      "type": "standard",
+      "title": "Responder código",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Sua receita foi recebida pela farmácia."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#resposta-codigo",
+      "dialog_node": "node_5_1665100064594",
+      "previous_sibling": "node_10_1665100542298"
+    },
+    {
+      "type": "standard",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "A sua receita está no status: Recebido pelo Farmácia.                                                                                               "
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "values": [],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_2_1664974933553",
+      "dialog_node": "node_6_1664975130968",
+      "previous_sibling": "response_4_1664976827177"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Para verificarmos os status do seu pedido, por gentileza, nos informe o número do mesmo."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "random"
+          },
+          {
+            "values": [
+              {
+                "text": "olá"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_2_1664974933553",
+      "disabled": true,
+      "dialog_node": "response_4_1664976827177",
+      "previous_sibling": "slot_1_1664976827769"
+    },
+    {
+      "type": "slot",
+      "parent": "node_2_1664974933553",
+      "dialog_node": "slot_1_1664976827769"
+    }
+  ],
+  "counterexamples": [],
+  "system_settings": {
+    "disambiguation": {
+      "prompt": "Você quis dizer:",
+      "enabled": true,
+      "randomize": true,
+      "max_suggestions": 5,
+      "suggestion_text_policy": "title",
+      "none_of_the_above_prompt": "Nenhuma das anteriores"
+    },
+    "human_agent_assist": {
+      "prompt": "Você quis dizer:"
+    },
+    "intent_classification": {
+      "training_backend_version": "v2"
+    }
+  },
+  "learning_opt_out": false,
+  "name": "Assistente-Farmapp",
+  "language": "pt-br",
+  "description": ""
+}
